@@ -1,5 +1,20 @@
 import Image from "next/image";
 
+interface buttonProps {
+  link: string;
+  children: React.ReactNode;
+  className?: string;
+}
+
+function Button({link, children, className}: buttonProps) {
+  return (
+    <a className={`bg-blue-500 hover:bg-blue-700 font-bold p-2 rounded ${className}`} href={link}>
+      {children}
+    </a>
+  );
+}
+
+
 export default function Hero(){
     return(
         <div>
@@ -17,12 +32,8 @@ export default function Hero(){
           </section>
           <section>
             <div className="flex justify-center gap-4 p-4">
-              <button className="bg-blue-500 hover:bg-blue-700 font-bold p-2 rounded">
-                Get started
-              </button>
-              <button className="bg-blue-500 hover:bg-blue-700 font-bold p-2 rounded">
-                Buy me
-              </button>
+              <Button link="/about" className="hover:bg-cyan-400">Buy me</Button>
+              <Button link="/contact" className="hover:bg-pink-400">Write me</Button>
             </div>
           </section>
         </div>
