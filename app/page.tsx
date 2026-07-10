@@ -1,11 +1,14 @@
 import Hero from "@/components/hero";
-import Image from "next/image";
+import Crew from "@/components/crew";
 
 export default function Home() {
   return (
-    
+    <div>
       <Hero />
-    
+      <Crew />
+    </div>
+
+      
       
 
     
