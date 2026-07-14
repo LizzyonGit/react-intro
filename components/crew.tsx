@@ -1,8 +1,33 @@
-import data from "@/data/characters.json";
+import { getCharacters } from "@/data/characters";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Crew(){
+interface CharacterItem{
+    
+        id: number;
+        name: string;
+        status: string;
+        species: string;
+        gender: string;
+        createdAt: string;
+        image: string | null;
+    
+    } 
+    
+interface CharacterResponse{
+    items: CharacterItem[];
+    total: number;
+    page: number;
+    size: number;
+    pages: number;
+}
+
+
+export default async function Crew(){
+
+    const json = await getCharacters() as CharacterResponse;
+
+
     return(
         <div>
             <section>
@@ -10,7 +35,7 @@ export default function Crew(){
                 <p>Meet the crew of Reactions</p>
 
                 <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[minmax(0,2fr)] gap-4 pl-4">
-                    {data.items.map((char)=>(
+                    {json.items.map((char)=>(
                         
                             <li className="" key={char.id}>
                                 <h3>{char.name}</h3>
@@ -38,6 +63,8 @@ export default function Crew(){
             </section>
 
         </div>)}
+
+
 
 
     
