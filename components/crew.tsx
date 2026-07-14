@@ -2,7 +2,7 @@ import { getCharacters } from "@/data/characters";
 import Image from "next/image";
 import Link from "next/link";
 
-interface CharacterItem{
+export interface CharacterItem{
     
         id: number;
         name: string;

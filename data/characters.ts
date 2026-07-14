@@ -5,3 +5,9 @@ export async function getCharacters(){
     
 
 }
+
+export async function getCharacterId(){
+    const fetchedCharacter = await fetch(`"https://futuramaapi.com/api/characters/${idNr}"`);
+    
+    return await fetchedCharacter.json();
+}

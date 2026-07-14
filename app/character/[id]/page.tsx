@@ -1,5 +1,8 @@
+import { getCharacterId } from "@/data/characters";
 import data from "@/data/characters.json";
 import { notFound } from "next/navigation";
+import { CharacterItem } from "@/components/crew";
+
 
 
 export async function generateMetadata({params}: {params: {id: string}}) {
@@ -7,7 +10,12 @@ export async function generateMetadata({params}: {params: {id: string}}) {
     const {id: idStr} = await params;
     const idNr = Number(idStr);
 
-    const character = data.items.find((character) => character.id === idNr );
+
+    const characterId = await getCharacterId() as CharacterItem;
+
+    // const character = data.items.find((character) => character.id === idNr );
+
+
 
 
     if ((Number.isNaN(idNr))) {
