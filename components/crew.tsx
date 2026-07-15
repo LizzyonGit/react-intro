@@ -14,7 +14,7 @@ export interface CharacterItem{
     
     } 
     
-interface CharacterResponse{
+export interface CharacterResponse{
     items: CharacterItem[];
     total: number;
     page: number;
@@ -22,10 +22,15 @@ interface CharacterResponse{
     pages: number;
 }
 
+type CrewProps = {
+    status?: string ;
+  };
 
-export default async function Crew(){
+export default async function Crew({ status }: CrewProps){
 
     const json = await getCharacters() as CharacterResponse;
+
+    const filteredCharacters = status ? json.items.filter((char) => char.status.toLowerCase() === status.toLowerCase()) : json.items;
 
 
     return(
@@ -34,11 +39,24 @@ export default async function Crew(){
                 <h2>Crew</h2>
                 <p>Meet the crew of Reactions</p>
 
+                <div className="flex gap-4">
+                <Link href="/">All</Link>
+                <Link href="/?status=ALIVE">Alive</Link>
+                <Link href="/?status=DEAD">Dead</Link>
+                <Link href="/?status=UNKNOWN">Unknown</Link>
+                </div>
+
                 <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[minmax(0,2fr)] gap-4 pl-4">
-                    {json.items.map((char)=>(
+                    
+                    
+                    
+                    
+                    {filteredCharacters.map((char)=>(
                         
                             <li className="" key={char.id}>
-                                <h3>{char.name}</h3>
+                                <h3>
+                                    <Link href={`/character/${char.id}`}>{char.name}</Link>
+                                </h3>
                                 <div className="relative h-64 w-full">
                                 {/* {char.image && <img src={char.image} alt={char.name} />} */}
                                 

@@ -1,5 +1,4 @@
 import { getCharacterId } from "@/data/characters";
-import data from "@/data/characters.json";
 import { notFound } from "next/navigation";
 import { CharacterItem } from "@/components/crew";
 
@@ -7,31 +6,21 @@ import { CharacterItem } from "@/components/crew";
 
 export async function generateMetadata({params}: {params: {id: string}}) {
     
-    const {id: idStr} = await params;
+    const { id: idStr } = params;
     const idNr = Number(idStr);
 
-
-    const characterId = await getCharacterId() as CharacterItem;
-
-    // const character = data.items.find((character) => character.id === idNr );
-
-
-
-
-    if ((Number.isNaN(idNr))) {
+    if (Number.isNaN(idNr)) {
         notFound();
     }
 
-    if(!character){
+    const characterId = await getCharacterId(idNr) as CharacterItem;
+
+    if (!characterId) {
         notFound();
-        
     }
 
-
-    
     return {
-        title: character?.name,
-        
+        title: characterId.name,
     };
 }
 
@@ -41,26 +30,23 @@ export async function generateMetadata({params}: {params: {id: string}}) {
 
 export default async function CharacterPage({params}: {params: {id: string}}) {
     
-    const {id: idStr} = await params;
+    const { id: idStr } = params;
     const idNr = Number(idStr);
 
-    const character = data.items.find((character) => character.id === idNr );
-
-
-    if ((Number.isNaN(idNr))) {
+    if (Number.isNaN(idNr)) {
         notFound();
     }
 
-    if(!character){
+    const character = await getCharacterId(idNr) as CharacterItem;
+
+    if (!character) {
         notFound();
-        // return <h1>Character not found</h1>;
     }
 
-
-    
     return (
         <div>
-        <h1>{character.name}</h1>
-        <p> {character.status}</p>
-    </div>);
+            <h1>{character.name}</h1>
+            <p>{character.status}</p>
+        </div>
+    );
 }
