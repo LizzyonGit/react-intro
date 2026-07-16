@@ -32,7 +32,7 @@ export default function Hero(){
           </section>
           <section>
             <div className="flex justify-center gap-4 p-4">
-              <Button link="/about" className="hover:bg-cyan-400">Buy me</Button>
+              <Button link="/seasons" className="hover:bg-cyan-400">Seasons</Button>
               <Button link="/contact" className="hover:bg-pink-400">Write me</Button>
             </div>
           </section>
